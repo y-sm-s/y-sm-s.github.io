@@ -734,9 +734,17 @@
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
           </span>
         </div>
-        <h3 class="card-title">Pipeline Big Data de classification d'images — AWS EMR</h3>
-        <p class="card-desc">Feature extraction MobileNetV2 broadcaste sur les workers Spark. PCA 200 composantes. Export Parquet sur S3. 95% de variance expliquee.</p>
+        <h3 class="card-title">Pipeline Big Data de classification d'images — Docker + AWS EMR</h3>
+        <p class="card-desc">
+          Approche en deux phases : reproduction complete de l'architecture AWS en local avec <strong style="color:var(--text)">Docker</strong> pour tester, stresser et debugger le pipeline sans frais cloud — puis deploiement sur EMR une fois stabilise.
+          Feature extraction MobileNetV2 broadcaste sur les workers Spark, PCA 200 composantes, export Parquet S3.
+        </p>
+        <div class="card-metrics">
+          <span class="metric">95% variance PCA</span>
+          <span class="metric">Couts AWS maitrise</span>
+        </div>
         <div class="tags">
+          <span class="tag">Docker</span>
           <span class="tag">PySpark</span>
           <span class="tag">AWS EMR</span>
           <span class="tag">MobileNetV2</span>

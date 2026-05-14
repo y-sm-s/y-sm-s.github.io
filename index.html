@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Youssouf Said — Data Scientist</title>
+  <meta name="description" content="Portfolio Data Scientist — Youssouf Said. ML, NLP, Big Data, MLOps." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --bg: #080808;
+      --surface: #0f0f0f;
+      --surface2: #161616;
+      --border: #1f1f1f;
+      --border2: #2a2a2a;
+      --text: #f0f0f0;
+      --muted: #555;
+      --muted2: #888;
+      --accent: #6366f1;
+      --accent2: #8b5cf6;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #f0f0f0 0%, #a0a0a0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .accent-gradient {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+    }
+    nav.scrolled {
+      background: rgba(8,8,8,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 40px;
+    }
+    .nav-links a {
+      color: var(--muted2);
+      text-decoration: none;
+      font-size: 0.875rem;
+      margin-left: 32px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* Blob background */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-label::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      margin-bottom: 32px;
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--muted2);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+      font-weight: 300;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: var(--accent);
+      color: white;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn-primary:hover {
+      background: var(--accent2);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border: 1px solid var(--border2);
+      color: var(--muted2);
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 40px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+    .scroll-indicator::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--muted), transparent);
+      animation: scrollLine 2s ease infinite;
+    }
+    @keyframes scrollLine {
+      0% { transform: scaleY(0); transform-origin: top; }
+      50% { transform: scaleY(1); transform-origin: top; }
+      51% { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* Sections */
+    section {
+      padding: 120px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      font-size: 0.95rem;
+      color: var(--muted2);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    /* About */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    }
+
+    .about-text p {
+      font-size: 1rem;
+      color: var(--muted2);
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 20px;
+    }
+    .about-text p strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .stat-item {
+      background: var(--surface);
+      padding: 28px 24px;
+    }
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted2);
+      font-weight: 400;
+    }
+
+    /* Divider */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* Project grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    @media (max-width: 768px) {
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+
+    .project-card {
+      background: var(--surface);
+      padding: 32px;
+      position: relative;
+      transition: background 0.2s ease;
+      text-decoration: none;
+      display: block;
+    }
+    .project-card:hover { background: var(--surface2); }
+    .project-card.featured {
+      grid-column: span 2;
+      background: var(--surface);
+    }
+    @media (max-width: 768px) {
+      .project-card.featured { grid-column: span 1; }
+    }
+    .project-card.featured:hover { background: var(--surface2); }
+
+    .project-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 0;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .project-card:hover::after { opacity: 0.03; }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+    .card-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .card-label.featured-label { color: var(--accent); }
+
+    .card-arrow {
+      color: var(--muted);
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .project-card:hover .card-arrow {
+      color: var(--text);
+      transform: translate(3px, -3px);
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 10px;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--muted2);
+      line-height: 1.65;
+      margin-bottom: 20px;
+      font-weight: 300;
+    }
+
+    .card-metrics {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .metric {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      background: rgba(99,102,241,0.08);
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(99,102,241,0.15);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted2);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border2);
+      padding: 3px 8px;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    .project-card:hover .tag {
+      border-color: rgba(99,102,241,0.2);
+      color: var(--muted2);
+    }
+
+    /* Live badge */
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.65rem;
+      color: #34d399;
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 16px;
+    }
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      background: #34d399;
+      border-radius: 50%;
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    @media (max-width: 768px) {
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+    .skill-block {
+      background: var(--surface);
+      padding: 28px;
+    }
+    .skill-block-title {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .skill-list {
+      list-style: none;
+    }
+    .skill-list li {
+      font-size: 0.82rem;
+      color: var(--muted2);
+      padding: 4px 0;
+      font-weight: 300;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .skill-list li:last-child { border-bottom: none; }
+
+    /* Contact */
+    .contact-section {
+      text-align: center;
+    }
+    .contact-section .section-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      margin-bottom: 20px;
+    }
+
+    /* Fade-up animation */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-up:nth-child(2) { transition-delay: 0.1s; }
+    .fade-up:nth-child(3) { transition-delay: 0.2s; }
+    .fade-up:nth-child(4) { transition-delay: 0.3s; }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+      max-width: 100%;
+    }
+    .footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer a:hover { color: var(--text); }
+
+    /* Noise overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.018;
+      pointer-events: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <span style="font-size:0.875rem; font-weight:600; color: var(--text);">YS</span>
+    <div class="nav-links">
+      <a href="#about">A propos</a>
+      <a href="#projets">Projets</a>
+      <a href="#competences">Competences</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <!-- Background blobs -->
+    <div class="blob" style="width:600px;height:600px;background:#6366f1;top:-200px;right:-200px;"></div>
+    <div class="blob" style="width:400px;height:400px;background:#8b5cf6;bottom:-100px;left:-150px;"></div>
+
+    <div style="max-width:1100px;margin:0 auto;width:100%;">
+      <div class="hero-label">Data Scientist</div>
+      <h1>
+        <span class="gradient-text">Youssouf</span><br>
+        <span class="gradient-text">Said</span>
+      </h1>
+      <p class="hero-desc">
+        Je transforme des donnees complexes en decisions concretes —
+        de l'exploration statistique a la mise en production de modeles ML.
+      </p>
+      <div class="hero-cta">
+        <a href="#projets" class="btn-primary">
+          Voir les projets
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/youssoufsaid" target="_blank" class="btn-ghost">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/y-sm-s" target="_blank" class="btn-ghost">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">scroll</div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">A propos</div>
+    <div class="about-grid">
+      <div class="about-text fade-up">
+        <h2 class="section-title" style="margin-bottom:32px;">Construire des<br><span class="accent-gradient">systemes intelligents</span></h2>
+        <p>
+          Diplome Data Scientist d'OpenClassrooms, j'ai acquis une <strong>vision complete du cycle de vie d'un projet ML</strong> — de l'exploration des donnees brutes jusqu'au deploiement en production avec monitoring.
+        </p>
+        <p>
+          Mes projets couvrent un spectre large : <strong>NLP et vision par ordinateur</strong>, scoring credit avec contraintes metier, segmentation client, pipelines Big Data sur AWS, et mise en production via FastAPI et Streamlit.
+        </p>
+        <p>
+          Ce qui m'anime : rendre les modeles <strong>interpretables, fiables et utiles</strong> pour les equipes metier — pas seulement performants sur un jeu de test.
+        </p>
+        <div style="margin-top:32px;">
+          <a href="https://www.linkedin.com/in/youssoufsaid" target="_blank" class="btn-primary" style="width:fit-content;">
+            Me contacter
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="fade-up" style="transition-delay:0.15s;">
+        <div class="stat-grid">
+          <div class="stat-item">
+            <div class="stat-number accent-gradient">9</div>
+            <div class="stat-label">Projets realises</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number accent-gradient">2 ans</div>
+            <div class="stat-label">De formation intensive</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number accent-gradient">11</div>
+            <div class="stat-label">Methodes NLP benchmarkees</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number accent-gradient">−38%</div>
+            <div class="stat-label">Cout metier scoring credit</div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px; padding:24px; background:var(--surface); border:1px solid var(--border); border-radius:12px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:var(--muted); margin-bottom:12px;">STACK PRINCIPALE</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <span class="tag">Python</span>
+            <span class="tag">scikit-learn</span>
+            <span class="tag">LightGBM</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">TensorFlow</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">PySpark</span>
+            <span class="tag">MLflow</span>
+            <span class="tag">AWS EMR</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="padding:0 40px;"><div class="divider"></div></div>
+
+  <!-- PROJECTS -->
+  <section id="projets">
+    <div class="section-label">Projets</div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;flex-wrap:wrap;gap:16px;">
+      <h2 class="section-title" style="margin:0;">9 projets,<br>du notebook a la prod.</h2>
+      <a href="https://github.com/y-sm-s" target="_blank" class="btn-ghost" style="flex-shrink:0;">
+        Voir sur GitHub
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+      </a>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- P7 FEATURED -->
+      <a href="https://github.com/y-sm-s/p7-scoring-credit" target="_blank" class="project-card featured fade-up">
+        <div class="card-header">
+          <span class="card-label featured-label">P7 — MLOps · Projet phare</span>
+          <span class="card-arrow">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </span>
+        </div>
+        <h3 class="card-title" style="font-size:1.2rem;">Scoring credit — de la modelisation a la production</h3>
+        <p class="card-desc">
+          Modele LightGBM de prediction du risque de defaut avec <strong style="color:var(--text)">fonction de cout metier asymetrique</strong>.
+          Seuil de decision calibre a 0,096 (et non 0,5). Pipeline complet : API REST, dashboard interactif,
+          tracking MLflow, surveillance du data drift, tests unitaires et CI/CD.
+        </p>
+        <div class="card-metrics">
+          <span class="metric">AUC 0,785</span>
+          <span class="metric">Cout metier −38%</span>
+          <span class="metric">6 tests pytest</span>
+        </div>
+        <div class="tags">
+          <span class="tag">LightGBM</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">Streamlit</span>
+          <span class="tag">MLflow</span>
+          <span class="tag">Evidently</span>
+          <span class="tag">SHAP</span>
+          <span class="tag">GitHub Actions</span>
+        </div>
+      </a>
+
+      <!-- P6 -->
+      <a href="https://github.com/y-sm-s/p6-classification-biens-consommation" target="_blank" class="project-card fade-up">
+        <div class="card-header">
+          <span class="card-label">P6 — NLP + Vision</span>
+          <span class="card-arrow">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </span>
+        </div>
+        <h3 class="card-title">Classification automatique de biens de consommation</h3>
+        <p class="card-desc">Benchmark de 11 approches NLP (BoW vers Sentence-BERT) et transfer learning image (VGG16, Xception). Sentence-BERT meilleur sur l'ARI.</p>
+        <div class="tags">
+          <span class="tag">Sentence-BERT</span>
+          <span class="tag">Transformers</span>
+          <span class="tag">Xception</span>
+          <span class="tag">UMAP</span>
+          <span class="tag">TensorFlow</span>
+        </div>
+      </a>
+
+      <!-- P8 -->
+      <a href="https://github.com/y-sm-s/p8-dashboard-veille-nlp" target="_blank" class="project-card fade-up">
+        <div class="card-header">
+          <span class="card-label">P8 — Dashboard + Veille</span>
+          <span class="card-arrow">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </span>
+        </div>
+        <h3 class="card-title">Dashboard scoring et veille NLP — BERTopic</h3>
+        <div class="live-badge">
+          <span class="live-dot"></span>
+          creditai-dashboard.onrender.com
+        </div>
+        <p class="card-desc">Dashboard Streamlit en production. Veille technique : LDA vs SBERT+K-Means vs BERTopic avec pipeline hybride original.</p>
+        <div class="tags">
+          <span class="tag">BERTopic</span>
+          <span class="tag">HDBSCAN</span>
+          <span class="tag">Streamlit</span>
+          <span class="tag">Render</span>
+        </div>
+      </a>
+
+      <!-- P9 -->
+      <a href="https://github.com/y-sm-s/p9-big-data-cloud-emr" target="_blank" class="project-card fade-up">
+        <div class="card-header">
+          <span class="card-label">P9 — Big Data Cloud</span>
+          <span class="card-arrow">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </span>
+        </div>
+        <h3 class="card-title">Pipeline Big Data de classification d'images — AWS EMR</h3>
+        <p class="card-desc">Feature extraction MobileNetV2 broadcaste sur les workers Spark. PCA 200 composantes. Export Parquet sur S3. 95% de variance expliquee.</p>
+        <div class="tags">
+          <span class="tag">PySpark</span>
+          <span class="tag">AWS EMR</span>
+          <span class="tag">MobileNetV2</span>
+          <span class="tag">S3</span>
+        </div>
+      </a>
+
+      <!-- P5 -->
+      <a href="https://github.com/y-sm-s/p5-segmentation-clients-ecommerce" target="_blank" class="project-card fade-up">
+        <div class="card-header">
+          <span class="card-label">P5 — Clustering</span>
+          <span class="card-arrow">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </span>
+        </div>
+        <h3 class="card-title">Segmentation clients e-commerce — Olist</h3>
+        <p class="card-desc">RFM + K-Means sur 100 000 commandes. Contrat de maintenance : stabilite du modele mesuree par ARI sur 26 semaines glissantes.</p>
+        <div class="tags">
+          <span class="tag">K-Means</span>
+          <span class="tag">RFM</span>
+          <span class="tag">ARI</span>
+          <span class="tag">yellowbrick</span>
+        </div>
+      </a>
+
+      <!-- P4 -->
+      <a href="https://github.com/y-sm-s/p4-prediction-consommation-batiments" target="_blank" class="project-card fade-up">
+        <div class="card-header">
+          <span class="card-label">P4 — Machine Learning</span>
+          <span class="card-arrow">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </span>
+        </div>
+        <h3 class="card-title">Prediction de la consommation energetique — Seattle</h3>
+        <p class="card-desc">Prediction CO2 et energie des batiments non residentiels. XGBoost selectionne apres benchmark, interpretabilite par SHAP.</p>
+        <div class="tags">
+          <span class="tag">XGBoost</span>
+          <span class="tag">SHAP</span>
+          <span class="tag">scikit-learn</span>
+        </div>
+      </a>
+
+      <!-- P3 -->
+      <a href="https://github.com/y-sm-s/p3-preparation-donnees-sante" target="_blank" class="project-card fade-up">
+        <div class="card-header">
+          <span class="card-label">P3 — Data Quality</span>
+          <span class="card-arrow">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </span>
+        </div>
+        <h3 class="card-title">Preparation de donnees — Open Food Facts</h3>
+        <p class="card-desc">Nettoyage et validation de la base Open Food Facts pour Sante publique France. Imputation KNN, ANOVA sur les nutriments, ACP.</p>
+        <div class="tags">
+          <span class="tag">KNNImputer</span>
+          <span class="tag">ANOVA</span>
+          <span class="tag">ACP</span>
+          <span class="tag">statsmodels</span>
+        </div>
+      </a>
+
+      <!-- P2 -->
+      <a href="https://github.com/y-sm-s/p2-analyse-systemes-educatifs" target="_blank" class="project-card fade-up">
+        <div class="card-header">
+          <span class="card-label">P2 — Analyse</span>
+          <span class="card-arrow">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </span>
+        </div>
+        <h3 class="card-title">Analyse des systemes educatifs mondiaux</h3>
+        <p class="card-desc">Identification des marches internationaux les plus prometteurs pour une startup EdTech, a partir des donnees de la Banque mondiale.</p>
+        <div class="tags">
+          <span class="tag">pandas</span>
+          <span class="tag">EDA</span>
+          <span class="tag">seaborn</span>
+        </div>
+      </a>
+
+      <!-- P10 -->
+      <a href="https://github.com/y-sm-s/p10-cadrage-projet-ia" target="_blank" class="project-card featured fade-up">
+        <div class="card-header">
+          <span class="card-label">P10 — Cadrage IA</span>
+          <span class="card-arrow">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </span>
+        </div>
+        <h3 class="card-title">Cadrage d'un projet IA — Fashion-Insta</h3>
+        <p class="card-desc">Cadrage complet d'une application mobile IA de recommandation vestimentaire : backlog MoSCoW, analyse de risques Spectre 7D, registre CNIL, chiffrage. Livrables orientes parties prenantes non-techniques.</p>
+        <div class="tags">
+          <span class="tag">Agile</span>
+          <span class="tag">MoSCoW</span>
+          <span class="tag">Spectre 7D</span>
+          <span class="tag">RGPD</span>
+          <span class="tag">Ethique IA</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <div style="padding:0 40px;"><div class="divider"></div></div>
+
+  <!-- SKILLS -->
+  <section id="competences">
+    <div class="section-label">Competences</div>
+    <h2 class="section-title" style="margin-bottom:48px;">Stack technique</h2>
+    <div class="skills-grid">
+      <div class="skill-block fade-up">
+        <div class="skill-block-title">Machine Learning</div>
+        <ul class="skill-list">
+          <li>scikit-learn, XGBoost, LightGBM</li>
+          <li>SMOTE, imbalanced-learn</li>
+          <li>Clustering (K-Means, HDBSCAN)</li>
+          <li>Reduction dimensionnelle (PCA, UMAP)</li>
+          <li>Interpretabilite (SHAP)</li>
+        </ul>
+      </div>
+      <div class="skill-block fade-up">
+        <div class="skill-block-title">NLP & Vision</div>
+        <ul class="skill-list">
+          <li>Transformers, Sentence-BERT</li>
+          <li>BERTopic, Word2Vec, FastText</li>
+          <li>TF-IDF, NLTK, spaCy</li>
+          <li>TensorFlow, Keras, PyTorch</li>
+          <li>Transfer learning (MobileNetV2, Xception)</li>
+        </ul>
+      </div>
+      <div class="skill-block fade-up">
+        <div class="skill-block-title">MLOps & Production</div>
+        <ul class="skill-list">
+          <li>FastAPI, Uvicorn</li>
+          <li>Streamlit, Plotly</li>
+          <li>MLflow (tracking, registry)</li>
+          <li>Evidently (data drift)</li>
+          <li>GitHub Actions (CI/CD), pytest</li>
+        </ul>
+      </div>
+      <div class="skill-block fade-up">
+        <div class="skill-block-title">Big Data & Cloud</div>
+        <ul class="skill-list">
+          <li>PySpark, Spark MLlib</li>
+          <li>AWS EMR, S3</li>
+          <li>Pipelines distribues, Parquet</li>
+        </ul>
+      </div>
+      <div class="skill-block fade-up">
+        <div class="skill-block-title">Donnees & Analyse</div>
+        <ul class="skill-list">
+          <li>pandas, numpy</li>
+          <li>matplotlib, seaborn</li>
+          <li>Statistiques (ANOVA, tests)</li>
+          <li>SQL</li>
+        </ul>
+      </div>
+      <div class="skill-block fade-up">
+        <div class="skill-block-title">Methodes</div>
+        <ul class="skill-list">
+          <li>Git, GitHub</li>
+          <li>Agile, Scrum, MoSCoW</li>
+          <li>RGPD, ethique de l'IA</li>
+          <li>Docker, Render</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div style="padding:0 40px;"><div class="divider"></div></div>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section">
+    <div class="section-label" style="text-align:center;">Contact</div>
+    <h2 class="section-title">
+      Parlons de votre<br>
+      <span class="accent-gradient">prochain projet.</span>
+    </h2>
+    <p class="section-sub" style="max-width:480px;margin:0 auto 48px;">
+      Disponible pour des opportunites en Data Science, Machine Learning et MLOps.
+    </p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="https://www.linkedin.com/in/youssoufsaid" target="_blank" class="btn-primary">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/y-sm-s" target="_blank" class="btn-ghost">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span>Youssouf Said</span>
+    <span>
+      <a href="https://github.com/y-sm-s" target="_blank">y-sm-s</a>
+      &nbsp;·&nbsp;
+      <a href="https://www.linkedin.com/in/youssoufsaid" target="_blank">LinkedIn</a>
+    </span>
+  </footer>
+
+  <script>
+    // Nav scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Fade-up on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

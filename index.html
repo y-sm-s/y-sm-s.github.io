@@ -3,301 +3,426 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Youssouf Said — Data Scientist</title>
-<meta name="description" content="Youssouf Said — Data Scientist. Machine Learning, NLP, Big Data, MLOps. Du notebook à la production." />
+<title>Youssouf Said, data scientist</title>
+<meta name="description" content="Youssouf Said, data scientist. Neuf projets menés du notebook à la production : machine learning, NLP, big data et MLOps." />
+<!-- V4 : le même contenu reconstruit sous le système imposé par
+     landing-page-design (elayadesign). Geist et Geist Mono, aucune serif,
+     aucune italique, une seule famille plus le mono pour les données,
+     tailles accrochées à l'échelle Tailwind, espacements pris dans sa table
+     de tokens (plafond 96 px), fonds plats, jeu d'états complet.
+     Deux règles de ce système ne sont PAS appliquées, délibérément :
+     le titre en dégradé (B5) et la structure FAQ / témoignages / CTA
+     répétée (A2). Les deux sont interdites par tastemaker et par
+     audit-ai-design-slop, et la seconde n'a pas de sens sur un portfolio. -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="assets/portfolio.css" />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 7 C9 7 10 22 16 22 C22 22 23 11 28 11' fill='none' stroke='%231b1b19' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='22' r='3.4' fill='%23a8412a'/%3E%3C/svg%3E" />
+<style>
+  /* Système : cahier de recherche. Serif éditoriale, colonne de marge pour
+     les métadonnées, figures réelles légendées. Un seul accent, réservé aux
+     repères. */
+  :root {
+    --paper:   #f6f6f3;
+    --ink:     #1b1b19;
+    --ink-2:   #47473f;
+    --muted:   #6d6d64;
+    --line:    #d5d5cd;
+    --line-2:  #bfbfb6;
+    --accent:  #a8412a;
+
+    --serif: 'Geist', system-ui, -apple-system, sans-serif;   /* une seule famille */
+    --mono:  'Geist Mono', ui-monospace, Menlo, monospace;      /* données uniquement */
+
+    /* Table d'espacement de landing-page-design B2. Aucune valeur entre,
+       aucune au-delà : le plafond du système est 96 px. */
+    --s-3: 12px; --s-4: 16px; --s-6: 24px; --s-8: 32px;
+    --s-12: 48px; --s-16: 64px; --s-24: 96px;
+
+    --w: 1120px;
+    --ease: cubic-bezier(0.32, 0.72, 0, 1);   /* B7 : jamais la courbe par défaut */
+    --margin-col: 200px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 1rem;             /* text-base, le pas du système */
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-variant-numeric: lining-nums;
+  }
+
+  ::selection { background: var(--ink); color: var(--paper); }
+  a { color: inherit; text-decoration: none; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  strong, b { font-weight: 600; }
+
+  .wrap { max-width: var(--w); margin: 0 auto; padding: 0 32px; }
+  @media (max-width: 720px) { .wrap { padding: 0 16px; } }
+
+  .mono {
+    font-family: var(--mono);
+    font-size: 0.75rem;          /* text-xs */
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .skip { position: absolute; left: -9999px; top: 0; z-index: 10;
+          background: var(--ink); color: var(--paper); padding: 12px 16px; }
+  .skip:focus { left: 12px; top: 12px; }
+
+  /* ---------- En-tête ---------- */
+  .top { display: flex; align-items: baseline; justify-content: space-between;
+         gap: 24px; height: 64px; border-bottom: 1px solid var(--line); }
+  .top .name { font-weight: 600; font-size: 1rem; }
+  .top nav { display: flex; gap: 24px; font-size: 0.875rem; }
+  .top nav a { border-bottom: 1px solid transparent; padding-bottom: 2px;
+               transition: border-color 240ms var(--ease), color 240ms var(--ease); }
+  .top nav a:hover { border-color: var(--ink); }
+  .top nav a[aria-current="true"] { color: var(--accent); border-color: var(--accent); }
+  @media (max-width: 680px) { .top nav { display: none; } }
+
+
+  .lang button { background: none; border: 0; padding: 2px; font: inherit;
+                 color: var(--muted); cursor: pointer; transition: color 240ms var(--ease); }
+  .lang button:hover { color: var(--ink); }
+  .lang button.active { color: var(--ink); font-weight: 500; }
+
+  /* ---------- Hero ---------- */
+  .hero { display: grid; grid-template-columns: 5fr 6fr; gap: var(--s-16);
+          align-items: end; padding: 80px 0 var(--s-24);
+          border-bottom: 1px solid var(--line); }
+  @media (max-width: 900px) { .hero { grid-template-columns: 1fr; gap: var(--s-8); padding: var(--s-12) 0 var(--s-16); } }
+
+  .hero h1 { font-weight: 500; font-size: clamp(2.25rem, 3.6vw, 3rem);    /* text-4xl -> text-5xl */
+             line-height: 1.1; letter-spacing: -0.02em; text-wrap: balance;
+             max-width: 680px; }
+  /* Emphase portée par le poids et l'accent, jamais par l'italique :
+     l'italique dans un titre est un marqueur d'IA que deux des skills
+     interdisent explicitement. */
+  .hero h1 .key { font-weight: 600; color: var(--accent); }
+  /* La couleur ne porte pas seule : le poids la double. */
+
+  .hero .lede { margin-top: var(--s-6); font-size: 1.125rem; line-height: 1.75rem;  /* text-lg */
+                color: var(--ink-2); max-width: 680px; text-wrap: pretty; }
+
+  .cta { display: inline-flex; align-items: baseline; gap: 8px;
+         margin-top: var(--s-8); padding: 12px 24px;
+         background: var(--ink); color: var(--paper); font-size: 1rem;
+         transition: background 240ms var(--ease); }
+  /* Jeu d'états complet (B9) : survol, appui physique, focus visible,
+     désactivé signalé par trois canaux et pas seulement l'opacité. */
+  .cta { font-weight: 600; border: 1px solid var(--ink); border-radius: 8px; }
+  .cta:hover { background: var(--accent); border-color: var(--accent); }
+  .cta:active { transform: translateY(1px); }
+  .cta[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+
+  /* ---------- Figures ---------- */
+  figure.fig { margin: 0; }
+  figure.fig img { display: block; width: 100%; height: auto;
+                   border: 1px solid var(--line); background: #fff; }
+  figure.fig figcaption { margin-top: var(--s-3); font-size: 0.875rem;        /* text-sm */
+                          line-height: 1.5; color: var(--ink-2); text-wrap: pretty; }
+  figure.fig figcaption .n { font-family: var(--mono); font-size: 0.75rem;
+                             color: var(--accent); margin-right: 8px; }
+
+  /* ---------- Sections ---------- */
+  section { padding: var(--s-24) 0; border-bottom: 1px solid var(--line); }
+  section.liaison { padding: var(--s-16) 0; }
+  section h2 { font-weight: 600; font-size: 1.875rem; line-height: 2.25rem;  /* text-3xl */
+               letter-spacing: -0.015em; margin-bottom: var(--s-12); }
+  @media (max-width: 720px) {
+    section { padding: var(--s-16) 0; }
+    section.liaison { padding: var(--s-12) 0; }
+    section h2 { margin-bottom: var(--s-8); }
+  }
+
+  /* ---------- Entrées de projet ---------- */
+  .entry { display: grid; grid-template-columns: var(--margin-col) 1fr;
+           gap: var(--s-12); padding: var(--s-8) 0; border-top: 1px solid var(--line); }
+  .entry:first-of-type { border-top: 0; padding-top: 0; }
+  @media (max-width: 800px) { .entry { grid-template-columns: 1fr; gap: var(--s-4); } }
+
+  .entry .margin { font-family: var(--mono); font-size: 0.75rem; line-height: 1.7;
+                   color: var(--muted); font-variant-numeric: tabular-nums; }
+  .entry .margin dt { color: var(--ink); margin-top: var(--s-3); }
+  .entry .margin dt:first-child { margin-top: 0; }
+  .entry .margin dd { color: var(--ink-2); }
+  .entry .margin dd.big { font-family: var(--mono); font-size: 1.5rem;   /* données en mono */
+                          line-height: 2rem; letter-spacing: -0.015em; font-weight: 500;
+                          color: var(--ink); margin-top: 4px; }
+  .entry .margin dd .src { display: block; font-size: 0.75rem; color: var(--muted); }
+
+  .entry h3 { font-weight: 600; font-size: 1.5rem; line-height: 2rem;   /* text-2xl */
+              letter-spacing: -0.015em; margin-bottom: var(--s-3);
+              max-width: 30ch; text-wrap: balance; }
+  .entry p { color: var(--ink-2); max-width: 66ch; margin-bottom: var(--s-3);
+             text-wrap: pretty; }
+  .entry figure.fig { margin: var(--s-6) 0 0; max-width: 760px; }
+
+  .more { display: inline-block; margin-top: var(--s-4); font-size: 0.875rem;
+          border-bottom: 1px solid var(--line-2); padding-bottom: 2px;
+          transition: color 240ms var(--ease), border-color 240ms var(--ease); }
+  .more { font-weight: 500; }
+  .more::after { content: " ↗"; color: var(--muted); }
+  .more:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ---------- Index ---------- */
+  .index { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-8) var(--s-16);
+           margin-top: var(--s-12); padding-top: var(--s-8);
+           border-top: 1px solid var(--line); }
+  @media (max-width: 800px) { .index { grid-template-columns: 1fr; gap: var(--s-8); } }
+  .index h4 { font-family: var(--mono); font-weight: 500; font-size: 0.75rem;
+              color: var(--muted); margin-bottom: var(--s-3); }
+  .index ul { list-style: none; }
+  .index li { display: grid; grid-template-columns: 1fr auto; gap: 16px;
+              align-items: baseline; padding: 8px 0; }
+  .index li + li { border-top: 1px dotted var(--line); }
+  .index li a { display: block; transition: color 240ms var(--ease); }
+  .index li a:hover, .index li a:hover .d { color: var(--accent); }
+  .index .t { display: block; font-size: 1rem; line-height: 1.5rem; font-weight: 500; }
+  .index .d { display: block; color: var(--ink-2); font-size: 0.875rem; line-height: 1.5; }
+  .index .y { font-family: var(--mono); font-size: 0.75rem; color: var(--muted);
+              font-variant-numeric: tabular-nums; }
+
+  /* ---------- Méthode ---------- */
+  .method { max-width: 66ch; }
+  .method .lead { font-size: 1.5rem; line-height: 2rem;   /* text-2xl */ letter-spacing: -0.015em;
+                  margin-bottom: var(--s-6); text-wrap: balance; }
+  .method p { color: var(--ink-2); margin-bottom: var(--s-4); text-wrap: pretty; }
+  .method ol { margin-top: var(--s-6); list-style: none; counter-reset: etape; }
+  .method ol li { counter-increment: etape; display: grid;
+                  grid-template-columns: 40px 1fr; gap: 12px; padding: var(--s-3) 0;
+                  border-top: 1px solid var(--line); color: var(--ink-2); }
+  .method ol li::before { content: counter(etape, decimal-leading-zero);
+                          font-family: var(--mono); font-size: 0.75rem;
+                          color: var(--accent); padding-top: 4px; font-size: 0.75rem; }
+  .method ol li b { color: var(--ink); font-weight: 500; }
+
+  /* ---------- Outils ---------- */
+  .tools { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-8); }
+  @media (max-width: 900px) { .tools { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .tools { grid-template-columns: 1fr; } }
+  .tools h4 { font-weight: 600; font-size: 1rem; margin-bottom: 8px;
+              padding-bottom: 8px; border-bottom: 1px solid var(--ink); }
+  .tools ul { list-style: none; color: var(--ink-2); font-size: 0.875rem; line-height: 1.75; }
+
+
+  /* ---------- Contact ---------- */
+  .contact { display: grid; grid-template-columns: var(--margin-col) 1fr;
+             gap: var(--s-12); align-items: baseline; }
+  @media (max-width: 800px) { .contact { grid-template-columns: 1fr; gap: var(--s-4); } }
+  .contact h2 { margin: 0; }
+  .contact p { color: var(--ink-2); max-width: 52ch; margin-bottom: var(--s-4); }
+  .contact ul { list-style: none; display: flex; gap: 24px; flex-wrap: wrap;
+                font-size: 1rem; }
+  .contact ul a { border-bottom: 1px solid var(--line-2); padding-bottom: 2px;
+                  transition: color 240ms var(--ease), border-color 240ms var(--ease); }
+  .contact ul a:hover { color: var(--accent); border-color: var(--accent); }
+
+  footer { padding: var(--s-6) 0 var(--s-8); display: flex;
+           justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+</style>
 </head>
 <body>
 
-<!-- ===================== Top bar ===================== -->
-<header class="topbar" id="topbar">
-  <a href="#" class="brand"><span class="dot"></span>Youssouf Said</a>
-  <nav class="topnav">
-    <a href="#projets" class="nav-link" data-i18n="nav_work">Projets</a>
-    <a href="#about" class="nav-link" data-i18n="nav_about">À propos</a>
-    <a href="#expertise" class="nav-link" data-i18n="nav_skills">Expertise</a>
-    <a href="#contact" class="nav-link" data-i18n="nav_contact">Contact</a>
+<a class="skip" href="#contenu">Aller au contenu</a>
+
+<header class="wrap top">
+  <a href="#contenu" class="name">Youssouf Said</a>
+  <nav aria-label="Sections">
+    <a href="#projets">Projets</a>
+    <a href="#methode">Méthode</a>
+    <a href="#outils">Outils</a>
+    <a href="#contact">Contact</a>
   </nav>
-  <div class="topbar-right">
-    <span class="avail"><span class="pulse"></span><span class="avail-txt" data-i18n="avail">Disponible</span></span>
-    <div class="lang">
-      <button type="button" data-lang="fr" class="active">FR</button>
-      <button type="button" data-lang="en">EN</button>
-    </div>
-  </div>
 </header>
 
-<main>
+<main class="wrap" id="contenu">
 
-  <!-- ===================== Hero ===================== -->
-  <section class="hero wrap">
-    <div class="hero-row">
-      <span class="tag"><span class="idx">(00)</span></span>
-      <div class="rotator" aria-hidden="true">
+  <section class="hero">
+    <div>
+      <h1>Data scientist. Des modèles calibrés sur le <span class="key">coût réel</span>, pas sur l’accuracy.</h1>
+      <p class="lede">Neuf projets menés du notebook à la production, avec tests, suivi de dérive et CI/CD.</p>
+      <a href="#projets" class="cta">Voir les projets <span aria-hidden="true">↓</span></a>
+    </div>
+    <figure class="fig">
+      <img src="assets/figures/p7-cout-seuil.png" width="989" height="490" fetchpriority="high"
+           alt="Courbe du coût métier en fonction du seuil de décision d’un modèle LightGBM. Le coût chute fortement jusqu’à un minimum au seuil 0,098, puis remonte jusqu’au seuil par défaut 0,5." />
+      <figcaption><span class="n">Fig. 1</span>Coût métier (10 × FN + FP) selon le seuil de décision, LightGBM. Modèle baseline : le minimum est à 0,098. Le modèle final retenu descend à 30 173 pour un seuil de 0,096.</figcaption>
+    </figure>
+  </section>
+
+  <section id="projets">
+    <h2>Projets</h2>
+
+    <article class="entry">
+      <dl class="margin">
+        <dt>Scoring crédit</dt><dd>2026, projet 7</dd>
+        <dt>AUC validation</dt><dd class="big">0,785</dd>
+        <dt>Coût métier</dt><dd class="big">−38 %</dd>
+        <dd class="src">48 473 au seuil 0,5, 30 173 au seuil calibré</dd>
+        <dt>Stack</dt><dd>LightGBM, FastAPI, Streamlit, MLflow, Evidently, SHAP, GitHub Actions</dd>
+      </dl>
+      <div>
+        <h3>Scoring crédit, de la modélisation à la production</h3>
+        <p>Modèle de risque de défaut entraîné avec une fonction de coût asymétrique : un faux négatif coûte dix fois un faux positif. Le seuil de décision est donc calibré sur ce coût (0,096) et non laissé à 0,5.</p>
+        <p>Le modèle est servi par une API FastAPI, exposé dans un dashboard Streamlit, versionné avec MLflow. La dérive des données est suivie avec Evidently. Six tests pytest et un pipeline CI/CD verrouillent chaque déploiement.</p>
+        <a class="more" href="https://github.com/y-sm-s/p7-scoring-credit" target="_blank" rel="noopener noreferrer">Code et rapport sur GitHub</a>
+      </div>
+    </article>
+
+    <article class="entry">
+      <dl class="margin">
+        <dt>Classification de produits</dt><dd>2024, projet 6</dd>
+        <dt>Approches comparées</dt><dd class="big">11</dd>
+        <dt>Stack</dt><dd>Sentence-BERT, Xception, UMAP, TensorFlow</dd>
+      </dl>
+      <div>
+        <h3>Classer des biens de consommation à partir du texte et de l’image</h3>
+        <p>Benchmark de onze représentations textuelles, du sac de mots à Sentence-BERT, puis transfer learning image avec Xception. Sentence-BERT donne les clusters les plus fidèles aux catégories réelles.</p>
+        <figure class="fig">
+          <img src="assets/figures/p6-umap-sbert.png" width="1615" height="687" loading="lazy"
+               alt="Deux projections UMAP côte à côte des mêmes produits : à gauche colorés par catégorie réelle, à droite par cluster trouvé. Les sept groupes se superposent presque parfaitement." />
+          <figcaption><span class="n">Fig. 2</span>Projection UMAP des embeddings Sentence-BERT. À gauche les catégories réelles, à droite les clusters obtenus : sept groupes retrouvés sur sept.</figcaption>
+        </figure>
+        <a class="more" href="https://github.com/y-sm-s/p6-classification-biens-consommation" target="_blank" rel="noopener noreferrer">Code et notebooks sur GitHub</a>
+      </div>
+    </article>
+
+    <article class="entry">
+      <dl class="margin">
+        <dt>Veille NLP</dt><dd>2025, projet 8</dd>
+        <dt>ARI, SBERT + K-Means</dt><dd class="big">0,714</dd>
+        <dt>ARI, BERTopic</dt><dd class="big">0,354</dd>
+        <dt>Stack</dt><dd>BERTopic, HDBSCAN, Streamlit, Render</dd>
+      </dl>
+      <div>
+        <h3>Dashboard en production et veille : LDA, SBERT + K-Means, BERTopic</h3>
+        <p>Comparaison de trois approches de topic modeling sur le même jeu de produits. Résultat contre-intuitif : le pipeline le plus récent, BERTopic, est deux fois moins fidèle aux catégories que SBERT + K-Means. Le rapport de veille détaille pourquoi.</p>
+          <figure class="fig">
+          <img src="assets/figures/p8-ari-topic-modeling.png" width="1784" height="590" loading="lazy"
+               alt="Trois projections UMAP côte à côte : catégories réelles, clusters SBERT + K-Means avec un ARI de 0,714, et clusters BERTopic avec un ARI de 0,354." />
+          <figcaption><span class="n">Fig. 3</span>Vérité terrain, SBERT + K-Means (ARI 0,714) et BERTopic suivi d’une régression logistique (ARI 0,354).</figcaption>
+        </figure>
+        <a class="more" href="https://github.com/y-sm-s/p8-dashboard-veille-nlp" target="_blank" rel="noopener noreferrer">Dashboard et rapport de veille</a>
+      </div>
+    </article>
+
+    <article class="entry">
+      <dl class="margin">
+        <dt>Segmentation clients</dt><dd>2024, projet 5</dd>
+        <dt>Commandes analysées</dt><dd class="big">100 000</dd>
+        <dt>Stabilité suivie</dt><dd>26 semaines glissantes</dd>
+        <dt>Stack</dt><dd>K-Means, RFM, ARI, pandas</dd>
+      </dl>
+      <div>
+        <h3>Segmentation clients e-commerce et contrat de maintenance</h3>
+        <p>Segmentation RFM par K-Means sur les commandes Olist. La question posée n’est pas seulement « quels segments », mais « combien de temps tiennent-ils » : la stabilité est mesurée par l’ARI sur 26 semaines glissantes, ce qui donne une fréquence de ré-entraînement chiffrée.</p>
+        <figure class="fig">
+          <img src="assets/figures/p5-clusters-rfm.png" width="1176" height="824" loading="lazy"
+               alt="Trois graphiques en barres comparant les quatre clusters K-Means sur la récence, le nombre de commandes et le panier moyen." />
+          <figcaption><span class="n">Fig. 4</span>Profil des quatre segments. Le cluster 2 est le seul à dépasser une commande en moyenne, le cluster 0 concentre le panier élevé, le cluster 3 les clients dormants.</figcaption>
+        </figure>
+        <a class="more" href="https://github.com/y-sm-s/p5-segmentation-clients-ecommerce" target="_blank" rel="noopener noreferrer">Code et notebooks sur GitHub</a>
+      </div>
+    </article>
+
+    <div class="index">
+      <div>
+        <h4>Données et modélisation</h4>
         <ul>
-          <li>Machine Learning</li>
-          <li>NLP &amp; Vision</li>
-          <li>Big Data</li>
-          <li>MLOps</li>
-          <li>Machine Learning</li>
+          <li><a href="https://github.com/y-sm-s/p4-prediction-consommation-batiments" target="_blank" rel="noopener noreferrer"><span class="t">Consommation énergétique des bâtiments</span><span class="d">Régression, feature engineering, comparaison de modèles</span></a><span class="y">2025</span></li>
+          <li><a href="https://github.com/y-sm-s/p3-preparation-donnees-sante" target="_blank" rel="noopener noreferrer"><span class="t">Préparation de données, santé publique</span><span class="d">Nettoyage et analyse exploratoire d’Open Food Facts</span></a><span class="y">2025</span></li>
+          <li><a href="https://github.com/y-sm-s/p2-analyse-systemes-educatifs" target="_blank" rel="noopener noreferrer"><span class="t">Analyse de systèmes éducatifs</span><span class="d">Exploration de données Banque mondiale</span></a><span class="y">2025</span></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Big data, cloud et cadrage</h4>
+        <ul>
+          <li><a href="https://github.com/y-sm-s/p9-big-data-cloud-emr" target="_blank" rel="noopener noreferrer"><span class="t">Pipeline Spark sur AWS EMR</span><span class="d">Architecture reproduite en local avec Docker puis déployée sur EMR, MobileNetV2 et PCA</span></a><span class="y">2026</span></li>
+          <li><a href="https://github.com/y-sm-s/p10-cadrage-projet-ia" target="_blank" rel="noopener noreferrer"><span class="t">Cadrage d’un projet IA</span><span class="d">Backlog, dimensionnement, risques et conformité RGPD</span></a><span class="y">2026</span></li>
+          <li><a href="https://github.com/y-sm-s" target="_blank" rel="noopener noreferrer"><span class="t">Les neuf dépôts sur GitHub</span><span class="d">Notebooks, rapports et présentations</span></a><span class="y" aria-hidden="true">↗</span></li>
         </ul>
       </div>
     </div>
-    <h1>Youssouf<br /><span class="thin">Said<span class="accent">.</span></span></h1>
-    <div class="hero-foot">
-      <p class="hero-lede" data-i18n="hero_lede">Je transforme des données complexes en décisions concrètes — de l'exploration statistique au <strong>déploiement supervisé en production</strong>.</p>
-      <div class="hero-meta">
-        <a href="#projets" class="hero-cta"><span data-i18n="hero_cta">Voir les projets</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-        <div class="hero-loc">
-          <strong data-i18n="hero_loc_l1">Data Scientist · diplômé OpenClassrooms</strong><br />
-          <span data-i18n="hero_loc_l2">Ouvert aux opportunités · 2026</span>
-        </div>
-      </div>
+  </section>
+
+  <section id="methode">
+    <h2>Méthode</h2>
+    <div class="method">
+      <p class="lead">Un modèle n’a de valeur que s’il est interprétable, fiable et déployé. La performance sur un jeu de test n’est qu’une étape.</p>
+      <p>Diplômé data scientist d’OpenClassrooms après neuf projets menés de bout en bout, je travaille sur toute la chaîne : données brutes, modélisation, mise en production et suivi. Trois habitudes reviennent dans chaque projet.</p>
+      <ol>
+        <li><span><b>Calibrer sur le coût métier.</b> Le seuil de décision est un paramètre à optimiser, pas une constante. Sur le scoring crédit, ce choix seul fait passer le coût de 48 473 à 30 173, soit 38 % de moins.</span></li>
+        <li><span><b>Mesurer la stabilité, pas seulement la performance.</b> Sur la segmentation clients, l’ARI suivi sur 26 semaines glissantes indique quand ré-entraîner, avant que le modèle ne dérive.</span></li>
+        <li><span><b>Livrer quelque chose qui tourne.</b> API, dashboard, tests, CI/CD et suivi de dérive font partie du projet, pas d’une phase « plus tard ».</span></li>
+      </ol>
     </div>
   </section>
 
-  <!-- ===================== Marquee ===================== -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span>Python</span><span>scikit-learn</span><span>LightGBM</span><span>PyTorch</span><span>TensorFlow</span><span>FastAPI</span><span>PySpark</span><span>MLflow</span><span>AWS EMR</span><span>Sentence-BERT</span><span>SHAP</span><span>Docker</span>
-      <span>Python</span><span>scikit-learn</span><span>LightGBM</span><span>PyTorch</span><span>TensorFlow</span><span>FastAPI</span><span>PySpark</span><span>MLflow</span><span>AWS EMR</span><span>Sentence-BERT</span><span>SHAP</span><span>Docker</span>
-    </div>
-  </div>
 
-  <!-- ===================== Works ===================== -->
-  <section class="block wrap" id="projets">
-    <div class="sec-head">
-      <div>
-        <span class="tag" style="margin-bottom:18px;"><span class="idx">(01)</span> <span data-i18n="nav_work">Projets</span></span>
-        <h2 data-i18n="works_title">Projets sélectionnés</h2>
-      </div>
-      <p class="sec-note" data-i18n="works_note">Neuf projets menés de bout en bout, du notebook à la mise en production.</p>
-    </div>
-
-    <!-- Flagship -->
-    <a class="feature reveal" href="https://github.com/y-sm-s/p7-scoring-credit" target="_blank" rel="noopener noreferrer">
-      <div class="feature-media">
-        <div class="work-arrow">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="motif">
-          <span class="motif-cap" data-i18n="feat_cap">Dashboard Streamlit · scoring</span>
-          <svg viewBox="0 0 400 200" preserveAspectRatio="none">
-            <!-- cost curve -->
-            <polyline class="stroke" points="10,170 50,150 90,120 130,95 170,78 210,72 250,86 290,112 330,140 390,165" opacity="0.45"/>
-            <polyline class="stroke-acc" points="10,150 50,120 90,92 130,70 170,58 210,60 250,76 290,104 330,134 390,160"/>
-            <!-- threshold -->
-            <line class="stroke-acc" x1="190" y1="20" x2="190" y2="185" stroke-dasharray="3 5" opacity="0.7"/>
-            <circle class="fill-acc" cx="190" cy="59" r="5"/>
-          </svg>
-        </div>
-      </div>
-      <div class="feature-body">
-        <div class="ftag"><span class="pill-star" data-i18n="feat_tag">Pièce maîtresse</span> P7 · MLOps</div>
-        <h3 data-i18n="feat_h">Scoring crédit — de la modélisation à la production</h3>
-        <p data-i18n="feat_p">Modèle LightGBM de risque de défaut avec <strong>fonction de coût métier asymétrique</strong> : seuil calibré à 0,096, pas à 0,5. Pipeline industrialisé — API FastAPI, dashboard, MLflow, suivi du data drift, tests et CI/CD.</p>
-        <div class="feature-metrics">
-          <div class="fm"><div class="v">0,785</div><div class="k" data-i18n="feat_m1">AUC validation</div></div>
-          <div class="fm"><div class="v accent">−38%</div><div class="k" data-i18n="feat_m2">Coût métier</div></div>
-          <div class="fm"><div class="v">6</div><div class="k" data-i18n="feat_m3">Tests pytest</div></div>
-        </div>
-        <div class="chips">
-          <span class="chip">LightGBM</span><span class="chip">FastAPI</span><span class="chip">Streamlit</span><span class="chip">MLflow</span><span class="chip">Evidently</span><span class="chip">SHAP</span><span class="chip">GitHub Actions</span>
-        </div>
-      </div>
-    </a>
-
-    <!-- Other works -->
-    <div class="works-grid">
-
-      <a class="work reveal" href="https://github.com/y-sm-s/p6-classification-biens-consommation" target="_blank" rel="noopener noreferrer">
-        <div class="work-media">
-          <div class="work-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <div class="motif">
-            <span class="motif-cap" data-i18n="p6_cap">UMAP · espaces d'embeddings</span>
-            <svg viewBox="0 0 400 150">
-              <g class="fill-acc"><circle cx="70" cy="55" r="4"/><circle cx="86" cy="44" r="4"/><circle cx="58" cy="70" r="4"/><circle cx="78" cy="68" r="4"/><circle cx="96" cy="60" r="4"/><circle cx="64" cy="52" r="4"/></g>
-              <g class="fill-ink"><circle cx="220" cy="95" r="4"/><circle cx="238" cy="84" r="4"/><circle cx="210" cy="80" r="4"/><circle cx="232" cy="104" r="4"/><circle cx="250" cy="92" r="4"/><circle cx="222" cy="74" r="4"/></g>
-              <g class="fill-soft"><circle cx="320" cy="45" r="4"/><circle cx="336" cy="58" r="4"/><circle cx="312" cy="62" r="4"/><circle cx="344" cy="40" r="4"/><circle cx="328" cy="34" r="4"/></g>
-            </svg>
-          </div>
-        </div>
-        <div class="work-body">
-          <div class="work-top"><span class="ref">P6 · NLP + Vision</span><span class="yr">2024</span></div>
-          <h4 data-i18n="p6_h">Classification automatique de biens de consommation</h4>
-          <p data-i18n="p6_p">Benchmark de 11 approches NLP (BoW → Sentence-BERT) et transfer learning image. Sentence-BERT en tête sur l'ARI.</p>
-          <div class="chips"><span class="chip">Sentence-BERT</span><span class="chip">Xception</span><span class="chip">UMAP</span><span class="chip">TensorFlow</span></div>
-        </div>
-      </a>
-
-      <a class="work reveal" href="https://github.com/y-sm-s/p9-big-data-cloud-emr" target="_blank" rel="noopener noreferrer">
-        <div class="work-media">
-          <div class="work-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <div class="motif">
-            <span class="motif-cap" data-i18n="p9_cap">Architecture · AWS EMR + Spark</span>
-            <svg viewBox="0 0 400 150">
-              <rect class="stroke" x="30" y="60" width="64" height="30" rx="3"/>
-              <rect class="stroke-acc" x="168" y="40" width="64" height="30" rx="3"/>
-              <rect class="stroke-acc" x="168" y="80" width="64" height="30" rx="3"/>
-              <rect class="stroke" x="306" y="60" width="64" height="30" rx="3"/>
-              <line class="stroke" x1="94" y1="75" x2="168" y2="55"/>
-              <line class="stroke" x1="94" y1="75" x2="168" y2="95"/>
-              <line class="stroke" x1="232" y1="55" x2="306" y2="75"/>
-              <line class="stroke" x1="232" y1="95" x2="306" y2="75"/>
-            </svg>
-          </div>
-        </div>
-        <div class="work-body">
-          <div class="work-top"><span class="ref">P9 · Big Data Cloud</span><span class="yr">2024</span></div>
-          <h4 data-i18n="p9_h">Pipeline Big Data de classification d'images</h4>
-          <p data-i18n="p9_p">Architecture AWS reproduite en local avec Docker, puis déployée sur EMR. Feature extraction MobileNetV2 sur workers Spark, PCA 95 %.</p>
-          <div class="chips"><span class="chip">Docker</span><span class="chip">PySpark</span><span class="chip">AWS EMR</span><span class="chip">S3</span></div>
-        </div>
-      </a>
-
-      <a class="work reveal" href="https://github.com/y-sm-s/p8-dashboard-veille-nlp" target="_blank" rel="noopener noreferrer">
-        <div class="work-media">
-          <div class="work-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <div class="motif">
-            <span class="motif-cap" data-i18n="p8_cap">BERTopic · clusters de topics</span>
-            <svg viewBox="0 0 400 150">
-              <circle class="fill-acc" cx="100" cy="75" r="30" opacity="0.85"/>
-              <circle class="fill-ink" cx="200" cy="58" r="20"/>
-              <circle class="fill-soft" cx="270" cy="95" r="26"/>
-              <circle class="fill-ink" cx="320" cy="55" r="14" opacity="0.55"/>
-              <circle class="fill-acc" cx="165" cy="110" r="11" opacity="0.6"/>
-            </svg>
-          </div>
-        </div>
-        <div class="work-body">
-          <div class="work-top"><span class="ref">P8 · NLP · Prod</span><span class="yr">2025</span></div>
-          <h4 data-i18n="p8_h">Dashboard scoring &amp; veille NLP — BERTopic</h4>
-          <p data-i18n="p8_p">Dashboard Streamlit en production. Veille : LDA vs SBERT+K-Means vs BERTopic, avec un pipeline hybride original.</p>
-          <div class="chips"><span class="chip">BERTopic</span><span class="chip">HDBSCAN</span><span class="chip">Streamlit</span><span class="chip">Render</span></div>
-        </div>
-      </a>
-
-      <a class="work reveal" href="https://github.com/y-sm-s/p5-segmentation-clients-ecommerce" target="_blank" rel="noopener noreferrer">
-        <div class="work-media">
-          <div class="work-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <div class="motif">
-            <span class="motif-cap" data-i18n="p5_cap">RFM · clusters clients</span>
-            <svg viewBox="0 0 400 150">
-              <rect class="fill-soft" x="40" y="90" width="34" height="44"/>
-              <rect class="fill-ink" x="94" y="62" width="34" height="72"/>
-              <rect class="fill-acc" x="148" y="38" width="34" height="96"/>
-              <rect class="fill-ink" x="202" y="74" width="34" height="60"/>
-              <rect class="fill-soft" x="256" y="100" width="34" height="34"/>
-              <rect class="fill-ink" x="310" y="84" width="34" height="50"/>
-            </svg>
-          </div>
-        </div>
-        <div class="work-body">
-          <div class="work-top"><span class="ref">P5 · Clustering</span><span class="yr">2024</span></div>
-          <h4 data-i18n="p5_h">Segmentation clients e-commerce — Olist</h4>
-          <p data-i18n="p5_p">RFM + K-Means sur 100 000 commandes. Contrat de maintenance : stabilité du modèle mesurée par l'ARI sur 26 semaines glissantes.</p>
-          <div class="chips"><span class="chip">K-Means</span><span class="chip">RFM</span><span class="chip">ARI</span></div>
-        </div>
-      </a>
-
-    </div>
-
-    <a class="works-more" href="https://github.com/y-sm-s" target="_blank" rel="noopener noreferrer">
-      <span data-i18n="works_more">Les 9 projets sur GitHub</span>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-  </section>
-
-  <!-- ===================== Stats ===================== -->
-  <section class="stats">
-    <div class="stat reveal"><div class="n">9</div><div class="l" data-i18n="stat1">Projets de bout en bout</div></div>
-    <div class="stat reveal"><div class="n accent">−38%</div><div class="l" data-i18n="stat2">Coût métier · scoring crédit</div></div>
-    <div class="stat reveal"><div class="n">0,785</div><div class="l" data-i18n="stat3">AUC · modèle de production</div></div>
-    <div class="stat reveal"><div class="n">11</div><div class="l" data-i18n="stat4">Approches NLP benchmarkées</div></div>
-  </section>
-
-  <!-- ===================== About ===================== -->
-  <section class="block wrap" id="about">
-    <div class="sec-head">
-      <span class="tag"><span class="idx">(02)</span> <span data-i18n="nav_about">À propos</span></span>
-    </div>
-    <div class="about-grid">
-      <p class="about-lead reveal" data-i18n="about_lead">Un modèle n'a de valeur que lorsqu'il est <span class="accent">interprétable, fiable et déployé.</span></p>
-      <div class="about-body reveal">
-        <p data-i18n="about_p1">Diplômé Data Scientist d'OpenClassrooms, j'ai mené neuf projets de bout en bout : du nettoyage de données brutes au déploiement supervisé en production, avec monitoring.</p>
-        <p data-i18n="about_p2">Ce qui distingue mon travail : des seuils de décision calibrés sur le <strong>coût métier réel</strong>, le suivi du data drift, des tests automatisés et du CI/CD. La performance sur un jeu de test ne suffit pas — un modèle doit être utile à l'équipe qui s'appuie dessus.</p>
-      </div>
+  <section id="outils" class="liaison">
+    <h2>Outils</h2>
+    <div class="tools">
+      <div><h4>Machine learning</h4><ul><li>scikit-learn</li><li>LightGBM, XGBoost</li><li>K-Means, HDBSCAN</li><li>PCA, UMAP</li><li>SHAP</li></ul></div>
+      <div><h4>NLP et vision</h4><ul><li>Sentence-BERT</li><li>BERTopic</li><li>spaCy, NLTK</li><li>TensorFlow, PyTorch</li><li>Transfer learning</li></ul></div>
+      <div><h4>Mise en production</h4><ul><li>FastAPI, Streamlit</li><li>MLflow, Evidently</li><li>pytest</li><li>GitHub Actions</li><li>Docker</li></ul></div>
+      <div><h4>Big data et cloud</h4><ul><li>PySpark, Spark MLlib</li><li>AWS EMR, S3</li><li>Parquet</li><li>pandas, numpy</li><li>SQL</li></ul></div>
     </div>
   </section>
 
-  <!-- ===================== Expertise ===================== -->
-  <section class="block wrap" id="expertise">
-    <div class="sec-head">
-      <div>
-        <span class="tag" style="margin-bottom:18px;"><span class="idx">(03)</span> <span data-i18n="nav_skills">Expertise</span></span>
-        <h2 data-i18n="skills_title">Expertise</h2>
-      </div>
-      <p class="sec-note" data-i18n="skills_note">Une stack pensée pour couvrir tout le cycle de vie d'un projet ML.</p>
-    </div>
-    <div class="caps reveal">
-      <div class="cap">
-        <div class="cap-no">01</div>
-        <h4 data-i18n="cap1">Machine Learning</h4>
-        <div class="cap-list"><span>scikit-learn</span><span>XGBoost</span><span>LightGBM</span><span>SMOTE</span><span>K-Means</span><span>HDBSCAN</span><span>PCA · UMAP</span><span>SHAP</span></div>
-      </div>
-      <div class="cap">
-        <div class="cap-no">02</div>
-        <h4 data-i18n="cap2">NLP &amp; Vision</h4>
-        <div class="cap-list"><span>Transformers</span><span>Sentence-BERT</span><span>BERTopic</span><span>spaCy · NLTK</span><span>TensorFlow</span><span>PyTorch</span><span>Transfer learning</span></div>
-      </div>
-      <div class="cap">
-        <div class="cap-no">03</div>
-        <h4 data-i18n="cap3">MLOps &amp; Production</h4>
-        <div class="cap-list"><span>FastAPI</span><span>Streamlit</span><span>MLflow</span><span>Evidently</span><span>GitHub Actions</span><span>pytest</span><span>Docker</span></div>
-      </div>
-      <div class="cap">
-        <div class="cap-no">04</div>
-        <h4 data-i18n="cap4">Big Data &amp; Cloud</h4>
-        <div class="cap-list"><span>PySpark</span><span>Spark MLlib</span><span>AWS EMR</span><span>S3</span><span>Parquet</span><span>pandas · numpy</span><span>SQL</span></div>
-      </div>
+  <section id="contact" class="contact liaison">
+    <h2>Contact</h2>
+    <div>
+      <p>Ouvert aux opportunités en 2026, en CDI ou en mission. Un message sur LinkedIn suffit.</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/youssoufsaid" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li><a href="https://github.com/y-sm-s" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      </ul>
     </div>
   </section>
 
-  <!-- ===================== Contact ===================== -->
-  <section class="contact wrap" id="contact">
-    <div class="contact-inner">
-      <span class="tag ctag"><span class="idx">(04)</span> <span data-i18n="contact_tag">Contact</span></span>
-      <h2><span data-i18n="contact_h">Parlons de votre prochain</span><br /><span class="accent" data-i18n="contact_h_accent">projet data.</span></h2>
-      <div class="contact-links">
-        <a href="https://www.linkedin.com/in/youssoufsaid" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-        <a href="https://github.com/y-sm-s" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-      </div>
-    </div>
-  </section>
+  <footer>
+    <span class="mono">Youssouf Said, 2026</span>
+    <span class="mono">Figures issues des notebooks des projets.</span>
+  </footer>
 
 </main>
 
-<footer>
-  <div class="wrap">
-    <span class="f-name">Youssouf Said<span style="color:var(--accent)">.</span></span>
-    <span class="f-meta" data-i18n="foot_role">Data Scientist — ML · NLP · Big Data · MLOps</span>
-    <span class="f-meta"><a href="https://github.com/y-sm-s" target="_blank" rel="noopener noreferrer">y-sm-s</a> · © 2026</span>
-  </div>
-</footer>
+<script>
+(function () {
+  'use strict';
+  /* B9 : la section courante est indiquée dans la navigation. */
+  var links = [].slice.call(document.querySelectorAll('.top nav a'));
+  var sections = links
+    .map(function (a) { return document.querySelector(a.getAttribute('href')); })
+    .filter(Boolean);
+  if (!('IntersectionObserver' in window) || !sections.length) return;
 
-<template id="__bundler_thumbnail">
-  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-    <rect width="100" height="100" fill="#efeeea"/>
-    <text x="50" y="60" font-family="'Bricolage Grotesque', sans-serif" font-size="34" font-weight="700" fill="#14140f" text-anchor="middle" letter-spacing="-1">YS</text>
-    <circle cx="69" cy="48" r="3.4" fill="#2440c4"/>
-  </svg>
-</template>
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      links.forEach(function (a) {
+        if (a.getAttribute('href') === '#' + e.target.id) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+    });
+  }, { rootMargin: '-64px 0px -70% 0px' });
 
-<script src="assets/portfolio.js"></script>
+  sections.forEach(function (sec) { io.observe(sec); });
+})();
+</script>
 </body>
 </html>
